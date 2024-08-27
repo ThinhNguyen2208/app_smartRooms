@@ -24,7 +24,7 @@ const MainLayout = () => {
                 setAuth(session?.user)
                 updateUserData(session?.user)
                 // move screen
-                router.replace('/main/home')
+                router.replace('/home')
             }
             else {
                 // setAuth null
@@ -44,9 +44,13 @@ const MainLayout = () => {
 
     return (
         <Stack
+            name="(tabs)"
             screenOptions={{
                 headerShown: false
-            }} />
+            }}>
+            <Stack.Screen name='(tabs)' />
+        </Stack>
+
     )
 }
 

@@ -17,6 +17,7 @@ const Home = () => {
         }
     }
     return (
+
         <ScreenWrapper>
             <Text>home</Text>
             <Button title='đăng xuất' onPress={onLogout} />
