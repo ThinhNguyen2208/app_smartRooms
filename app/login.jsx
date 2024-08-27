@@ -9,23 +9,38 @@ import Button from "../components/Button";
 import { useRouter } from "expo-router";
 import { hp, wp } from "../helpers/common";
 import Input from "../components/Input";
+import { supabase } from "../lib/supabase";
 
 
 
 const login = () => {
 
     const router = useRouter()
-    const phoneRef = useRef("")
-    const passwordRef = useRef("")
+    const [email, setEmail] = useState('thinh@gmail.com')
+
+    const [password, setPassword] = useState('123456')
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = () => {
-        console.log(phoneRef.current, passwordRef.current)
+    const onSubmit = async () => {
         // đăng nhập thất bại !
-        if (!phoneRef.current || !passwordRef.current) {
+        if (!email || !password) {
             Alert.alert('Đăng nhập thất bại, Vui lòng điền thông tin tài khoản!')
         }
-        // đăng nhập thành công 
+        else {
+            // đăng nhập thành công 
+            setLoading(true)
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            })
+
+            setLoading(false)
+
+            console.log("errr", error)
+            if (error) {
+                Alert.alert("Đăng nhập không thành công", error.message)
+            }
+        }
     }
 
     return (
@@ -45,15 +60,16 @@ const login = () => {
 
                     <Input
                         icon={<Icon name="call" size={26} strokeWidth={1.6} />}
-                        placeholder='Số điện thoại'
-                        keyboardType="numeric"
-                        onChangeText={value => { phoneRef.current = value }}
+                        placeholder='Email của bạn'
+                        value={email}
+                        onChangeText={value => setEmail(value)}
                     />
                     <Input
                         icon={<Icon name="lock" size={26} strokeWidth={1.6} />}
                         placeholder='Mật khẩu'
+                        value={password}
                         secureTextEntry
-                        onChangeText={value => { passwordRef.current = value }}
+                        onChangeText={value => setPassword(value)}
                     />
                     <Text style={styles.forgotPassword}>Quên mật khẩu ?</Text>
 

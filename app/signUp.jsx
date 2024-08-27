@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
 import ScreenWrapper from "../components/ScreenWrapper";
 import { theme } from "../constants/theme";
@@ -9,18 +9,56 @@ import Button from "../components/Button";
 import { useRouter } from "expo-router";
 import { hp, wp } from "../helpers/common";
 import Input from "../components/Input";
+import { supabase } from "../lib/supabase";
 
 
 
 const signUp = () => {
 
     const router = useRouter()
-    const nameRef = useRef("")
-    const phoneRef = useRef("")
-    const passwordRef = useRef("")
+    const [name, setName] = useState('Nguyễn Đức Thịnh')
+
+    const [email, setEmail] = useState('thinh@gmail.com')
+    const [password, setPassword] = useState('123456')
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = () => {
+    console.log(name)
+    const onSubmit = async () => {
+        if (email === '' || password === '' || name === '') {
+            Alert.alert('Vui lòng điền đầy đủ thông tin')
+
+        } else {
+            setLoading(true)
+
+            // đăng ký tai khoản với supabase
+            const {
+                data: { session },
+                error,
+            } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        name
+                    },
+                },
+            })
+            setLoading(false)
+
+
+            // console.log("error", error)
+            // console.log('====================================');
+            // console.log("ss", session);
+            // console.log('====================================');
+
+            if (error) {
+                Alert.alert("Đăng ký không thành công", error.message)
+
+            }
+
+        }
+
+
 
 
     }
@@ -41,21 +79,22 @@ const signUp = () => {
 
                     <Input
                         icon={<Icon name="user" size={26} strokeWidth={1.6} />}
-                        placeholder='Tên của bạn '
-                        keyboardType="numeric"
-                        onChangeText={value => { nameRef.current = value }}
+                        placeholder='Tên của bạn'
+                        value={name}
+                        onChangeText={(value) => setName(value)}
                     />
                     <Input
                         icon={<Icon name="call" size={26} strokeWidth={1.6} />}
-                        placeholder='Số điện thoại'
-                        keyboardType="numeric"
-                        onChangeText={value => { phoneRef.current = value }}
+                        placeholder='Email của bạn'
+                        value={email}
+                        onChangeText={(value) => setEmail(value)}
                     />
                     <Input
                         icon={<Icon name="lock" size={26} strokeWidth={1.6} />}
                         placeholder='Mật khẩu'
+                        value={password}
                         secureTextEntry
-                        onChangeText={value => { passwordRef.current = value }}
+                        onChangeText={(value) => setPassword(value)}
                     />
 
                     {/* button */}
