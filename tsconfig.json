@@ -16,6 +16,9 @@
     "components/ScreenWrapper.jsx",
     "constants/index.js",
     "components/TabBarButton.jsx",
-    "components/TabBar.jsx"
+    "components/TabBar.jsx",
+    "app/(tabs)/notification.jsx",
+    "app/(tabs)/_layout.jsx",
+    "components/RoomDetailInfo.jsx"
   ]
 }
