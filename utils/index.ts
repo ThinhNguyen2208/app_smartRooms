@@ -42,7 +42,7 @@ export const getColor = (type: "error" | "warn" | "success" | "info" | "primary"
 };
 
 export function convertPhone84(phoneNumber: string) {
-  phoneNumber = phoneNumber.replace(/\D/g, ""); // Remove all non-numeric characters
+  phoneNumber = phoneNumber?.replace(/\D/g, ""); // Remove all non-numeric characters
   if (phoneNumber.length === 10) {
     phoneNumber = "+84" + phoneNumber.substr(1); // Prepend the country code and remove the leading "0"
   } else if (phoneNumber.length === 11) {

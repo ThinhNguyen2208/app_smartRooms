@@ -22,11 +22,11 @@ import {
 
 
 import Geocoder from "react-native-geocoding";
-import useDebounce from "../hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 
-import axiosClient from "../api/axiosClient";
-import { getAddressFromLocation, getAddressFromText } from "../utils/map";
+import axiosClient from "../../api/axiosClient";
+import { getAddressFromLocation, getAddressFromText } from "../../utils/map";
 
 // {
 //   address: '',
@@ -85,7 +85,8 @@ const AddressModal = ({ visible, onClose, onSelectAddress }) => {
                 longitude: result.location.lng,
             },
         });
-        console.log(result)
+        setAddressCustomer(result)
+        onSelectAddress(result.address)
 
     };
 
@@ -102,7 +103,9 @@ const AddressModal = ({ visible, onClose, onSelectAddress }) => {
                 longitude: location.coords.longitude,
             };
             const address = await getAddressFromLocation(coordinate);
-            console.log(address)
+            console.log('====================================');
+            console.log(address);
+            console.log('====================================');
         } catch (error) {
             console.log(error);
         }
@@ -134,9 +137,9 @@ const AddressModal = ({ visible, onClose, onSelectAddress }) => {
                                     stylesSearchLocation.btn,
                                     stylesSearchLocation.btn.btnRadius,
                                 ]}
-                                onPress={() => {
-                                    console.log(123)
-                                }}
+                            // onPress={() => {
+                            //     console.log(123)
+                            // }}
                             >
                                 <FontAwesome5
                                     name="map-marked"

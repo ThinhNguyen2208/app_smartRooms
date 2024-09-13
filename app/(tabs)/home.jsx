@@ -15,8 +15,7 @@ import {
 import React from 'react'
 import Button from '../../components/Button'
 import ScreenWrapper from '../../components/ScreenWrapper'
-import { useAuth } from '../../contexts/AuthContext'
-import { supabase } from '../../lib/supabase'
+
 import COLORS from '../../constants/Colors'
 import { useRouter } from "expo-router";
 
@@ -29,16 +28,7 @@ const cardWidth = width / 1.8;
 
 const Home = () => {
     const router = useRouter()
-    // const { user, setAuth } = useAuth()
-    // console.log("user", user)
 
-    // const onLogout = () => {
-    //     const { error } = supabase.auth.signOut()
-
-    //     if (error) {
-    //         Alert.alert("Đăng xuất thất bại!")
-    //     }
-    // }
     const categories = ["Tất cả", "Quận 1", "Bình thạnh", "Gò vấp", "Quận 3"];
     const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
     const [activeCardIndex, setActiveCardIndex] = React.useState(0);
@@ -91,7 +81,7 @@ const Home = () => {
 
         return (
             <TouchableOpacity disabled={activeCardIndex != index} activeOpacity={1} onPress={() => router.push({
-                pathname: 'DetailRoom',
+                pathname: './search',
                 params: { data: JSON.stringify(hotel) } // Chuyển data qua JSON
             })}>
                 <Animated.View style={{ ...style.card, transform: [{ scale }] }}>
@@ -169,7 +159,7 @@ const Home = () => {
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <TouchableOpacity onPress={() => router.push("Search")}>
+                <TouchableOpacity onPress={() => router.push("./search")}>
                     <View style={style.searchInputContainer}>
                         <Icon name="search" size={30} style={{ marginLeft: 20 }} />
                         <TextInput
@@ -179,6 +169,7 @@ const Home = () => {
                                 paddingLeft: 10,
                                 width: "100%",
                             }}
+                            editable={false}
                         />
                     </View>
                 </TouchableOpacity>
@@ -214,7 +205,9 @@ const Home = () => {
                     }}
                 >
                     <Text style={{ fontWeight: "bold", color: COLORS.grey }}>Phòng mới nhất</Text>
-                    <Text style={{ color: COLORS.grey }}>Xem tất cả</Text>
+                    <TouchableOpacity onPress={() => router.push("./search")}>
+                        <Text style={{ color: COLORS.grey }}>Xem tất cả</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <FlatList

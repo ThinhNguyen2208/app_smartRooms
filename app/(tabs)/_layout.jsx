@@ -45,8 +45,8 @@ export default () => {
 
                 }}
             />
-            <Tabs.Screen name="post" options={{ title: "Đăng tin" }} />
-            <Tabs.Screen name="search" options={{ title: "Tìm phòng" }} />
+            <Tabs.Screen name="post" options={{ title: "Đăng tin", headerShown: false, }} />
+            <Tabs.Screen name="search" options={{ title: "Tìm phòng", headerShown: false, }} />
             <Tabs.Screen name="profile" options={{ title: "Tài khoản" }} />
 
         </Tabs>

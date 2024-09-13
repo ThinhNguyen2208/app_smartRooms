@@ -33,6 +33,8 @@ const COLORS = {
   grey: "#908e8c",
   orange: "#f5a623",
   bgColor: "#82ccdd",
+  bgLable: "#f1f1f1",
+  txtLable: "#9b9b9b"
 };
 export default COLORS;
 
