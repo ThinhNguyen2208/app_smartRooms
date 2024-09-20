@@ -10,7 +10,7 @@ import { useRouter } from 'expo-router';
 
 const search = () => {
     const router = useRouter()
-    const [selectedTypeRentIndex, setSelectedTypeRentIndex] = useState<number>(0);
+    const [selectedTypeRentIndex, setSelectedTypeRentIndex] = useState(0);
     const typeRent = [
         'Phòng trọ',
         'Ký túc xá',
@@ -41,7 +41,7 @@ const search = () => {
         'Huyện Hóc Môn',
         'Huyện Nhà Bè',
     ];
-    const generateRentalItems = (numItems: number) => {
+    const generateRentalItems = (numItems) => {
         const baseImageUrl = 'https://sbshouse.vn/wp-content/uploads/2019/11/M%E1%BA%ABu-thi%E1%BA%BFt-k%E1%BA%BF-ph%C3%B2ng-tr%E1%BB%8D-%C4%91%E1%BA%B9p.jpg'
         const itemList = [];
 
@@ -80,7 +80,7 @@ const search = () => {
 
 
 
-    const handleItemPress = (item: any) => {
+    const handleItemPress = (item) => {
         router.push({ pathname: "../detailScreen", params: { id: item.id } });
     };
 

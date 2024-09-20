@@ -86,9 +86,9 @@ const Home = () => {
             })}>
                 <Animated.View style={{ ...style.card, transform: [{ scale }] }}>
                     <Animated.View style={{ ...style.cardOverLay, opacity }} />
-                    <View style={style.priceTag}>
+                    {/* <View style={style.priceTag}>
                         <Text style={{ color: COLORS.white, fontSize: 20, fontWeight: "bold" }}>${hotel.price}</Text>
-                    </View>
+                    </View> */}
                     <Image source={hotel.image} style={style.cardImage} />
                     <View style={style.cardDetails}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

@@ -36,7 +36,10 @@ const DetailScreen = ({ route }) => {
                 description: `Mô tả chi tiết về nhà cho thuê số ${i}. Phòng trọ rộng rãi, gần trung tâm thành phố.`,
                 price: `${i * 2000000}`,
                 area: i * 10,
-                deposit: 2000000
+                deposit: 2000000,
+                requestList: [
+
+                ]
             });
         }
 
@@ -81,6 +84,16 @@ const DetailScreen = ({ route }) => {
         numberOfPosts: 12,
         status: 'Đang hoạt động'
 
+    };
+
+    // ennable button
+    const [isButtonEnabled, setIsButtonEnabled] = useState(true);
+
+    const handleRequestContract = () => {
+        // Your logic for creating the contract goes here
+
+        // Disable the button after clicking
+        setIsButtonEnabled(false);
     };
 
     return (
@@ -151,7 +164,14 @@ const DetailScreen = ({ route }) => {
 
             {/* Contact Button */}
             <TouchableOpacity style={styles.contactButton} onPress={handleContactowner}>
-                <Text style={styles.contactButtonText}>Liên hệ chủ nhà</Text>
+                <Text style={styles.contactButtonText}>Liên hệ</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={[styles.requireButton, !isButtonEnabled && styles.disabledButton]}
+                onPress={isButtonEnabled ? handleRequestContract : null} // Only allow action if enabled
+                disabled={!isButtonEnabled} // Disable the button when clicked
+            >
+                <Text style={styles.contactButtonText}> {isButtonEnabled ? `Yêu cầu tạo hợp đồng` : `Đã gửi yêu cầu`} </Text>
             </TouchableOpacity>
 
             {/* modal */}
@@ -232,6 +252,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 20,
+    },
+    requireButton: {
+        backgroundColor: "#FF9999",
+        padding: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    disabledButton: {
+        backgroundColor: '#cccccc', // Change color when disabled
     },
     contactButtonText: {
         fontSize: 18,

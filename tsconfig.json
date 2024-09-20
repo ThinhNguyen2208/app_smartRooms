@@ -19,6 +19,8 @@
     "components/TabBar.jsx",
     "app/(tabs)/notification.jsx",
     "app/(tabs)/_layout.jsx",
-    "components/RoomDetailInfo.jsx"
+    "components/RoomDetailInfo.jsx",
+    "app/(tabs)/profile.jsx",
+    "app/(tabs)/search.jsx"
   ]
 }

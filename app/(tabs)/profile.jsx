@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
 import { Alert, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -7,12 +7,27 @@ import { Avatar, Caption, Text, Title, TouchableRipple } from "react-native-pape
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { convertPhone84 } from "../../utils";
 import { convertMoneyToVndText } from "../../utils/money";
+import SelectContract from '../../components/modal/SelectContract'
+import { router } from 'expo-router';
 const profile = () => {
+
+
     const { user, setAuth } = useAuth()
     console.log("user", user)
 
+    const [visibleSelectContract, setVisibleSelectContract] = useState(false)
+    // modal
+    const handelOpenModalSelectContract = () => {
+        setVisibleSelectContract(true)
+    }
+    const handelClosesSelectContract = () => {
+        setVisibleSelectContract(false)
+    }
+
+
+
     const onLogout = () => {
-        const { error }: any = supabase.auth.signOut()
+        const { error } = supabase.auth.signOut()
 
         if (error) {
             Alert.alert("Đăng xuất thất bại!")
@@ -26,7 +41,7 @@ const profile = () => {
                     <Avatar.Image
                         source={{
                             uri:
-                                user.avatar ||
+                                user?.avatar ||
                                 "https://png.pngtree.com/png-clipart/20220429/original/pngtree-dog-with-bell-going-to-sleep-pet-social-media-avatar-png-image_7572709.png",
                         }}
                         size={80}
@@ -65,7 +80,7 @@ const profile = () => {
                     <Text style={{ color: "#777777", marginLeft: 20 }}>{user.email || "yonedoan@gmail.com"}</Text>
                 </View>
             </View>
-
+            {/* 
             <View style={styles.infoBoxWrapper}>
                 <TouchableOpacity
                     onPress={() => { }}
@@ -77,7 +92,7 @@ const profile = () => {
                         },
                     ]}
                 >
-                    {/* <Title>{walletInfo?.balance ? convertMoneyToVndText(walletInfo?.balance as number) : 0}</Title> */}
+                    
                     <Caption>Ví của tôi</Caption>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -90,28 +105,28 @@ const profile = () => {
                         },
                     ]}
                 >
-                    {/* <Title>{listRoomRented?.data.items.length || 0}</Title> */}
                     <Caption>Phòng đã thuê</Caption>
                 </TouchableOpacity>
-            </View>
+            </View> */}
+
 
             <View style={styles.menuWrapper}>
-                <TouchableRipple onPress={() => { }}>
+                <TouchableRipple onPress={() => handelOpenModalSelectContract()}>
                     <View style={styles.menuItem}>
                         <Ionicons name="receipt-outline" size={25} color="#777777" />
-                        <Text style={styles.menuItemText}> Hoá đơn </Text>
+                        <Text style={styles.menuItemText}> Hợp đồng </Text>
                     </View>
                 </TouchableRipple>
-                <TouchableRipple onPress={() => { }}>
+                {/* <TouchableRipple onPress={() => { }}>
                     <View style={styles.menuItem}>
                         <Ionicons name="hammer-outline" size={25} color="#777777" />
                         <Text style={styles.menuItemText}>Tạo phòng</Text>
                     </View>
-                </TouchableRipple>
-                <TouchableRipple onPress={() => { }}>
+                </TouchableRipple> */}
+                <TouchableRipple onPress={() => { router.push('../roomManager') }}>
                     <View style={styles.menuItem}>
                         <Ionicons name="pricetags-outline" size={25} color="#777777" />
-                        <Text style={styles.menuItemText}>Phòng cho thuê</Text>
+                        <Text style={styles.menuItemText}>Quản lý phòng cho thuê</Text>
                     </View>
                 </TouchableRipple>
                 <TouchableRipple >
@@ -130,6 +145,11 @@ const profile = () => {
                     </View>
                 </TouchableRipple>
             </View>
+
+
+
+            {/* Modal */}
+            <SelectContract visible={visibleSelectContract} onClose={handelClosesSelectContract} />
         </SafeAreaView>
 
     )
@@ -187,4 +207,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 26,
     },
+
 })

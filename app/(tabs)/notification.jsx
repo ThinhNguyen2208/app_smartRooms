@@ -9,7 +9,6 @@ const notification = () => {
 
     return (
         <SafeAreaView>
-            <MainHeader title="Thông báo" />
 
             {!isLoading && (
                 <View style={{ height: "100%", alignItems: "center", justifyContent: "center" }}>
@@ -20,8 +19,6 @@ const notification = () => {
                 <Image source={require("../../assets/images/notification/notification.png")} style={{ width: "100%", height: 300 }} />
                 <Text style={styles.heading}>Không có thông báo ngay bây giờ!</Text>
             </View>
-
-
 
         </SafeAreaView>
     )
